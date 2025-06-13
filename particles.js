@@ -12,8 +12,8 @@ const mouse = {
 const escapeRadius = 100; // radius within which particles escape from the mouse
 const radiusMultiplier = 1.5; // multiplier for particle radius
 
-// Initialize particles with random positions and velocities
-// and store their original velocities
+// * Initialize particles with random positions and velocities
+// * and store their original velocities
 for (let i = 0; i < numParticles; i++) {
   particles.push({
     x: Math.random() * canvas.width,
@@ -27,7 +27,7 @@ for (let i = 0; i < numParticles; i++) {
   });
 }
 
-// Function to draw each particle
+// * Function to draw each particle
 function drawParticles(particle) {
   const dx = particle.x - mouse.x; // distance from mouse x
   const dy = particle.y - mouse.y; // distance from mouse y
@@ -38,9 +38,9 @@ function drawParticles(particle) {
 
   if (mouse.x !== null && distance < escapeRadius) {
     ctx.shadowColor = "rgba(255, 0, 0, 0.8)"; // lightblue glow
-    ctx.shadowBlur = 15; // blur effect for glow
+    ctx.shadowBlur = 15; // ! blur effect for glow
   } else {
-    ctx.shadowBlur = 0; // no glow effect when not near mouse
+    ctx.shadowBlur = 0; // ! no glow effect when not near mouse
   }
 
   ctx.fillStyle = particle.color;
@@ -48,7 +48,7 @@ function drawParticles(particle) {
   ctx.shadowBlur = 0; // reset to avoid applying it to next frame unintentionally
 }
 
-// Function to update particle positions and handle escape behavior
+// * Function to update particle positions and handle escape behavior
 function updateParticles(particle) {
   const dx = particle.x - mouse.x; // distance from mouse x
   const dy = particle.y - mouse.y; // distance from mouse y
