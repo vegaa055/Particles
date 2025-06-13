@@ -3,7 +3,7 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const numParticles = 1500;
+const numParticles = 2500;
 const particles = [];
 const mouse = {
   x: null,
@@ -18,29 +18,29 @@ for (let i = 0; i < numParticles; i++) {
   particles.push({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    vx: (Math.random() - 0.5) * 0.5,
-    vy: (Math.random() - 0.5) * 0.5,
-    originalVx: (Math.random() - 0.5) * 0.5,
-    originalVy: (Math.random() - 0.5) * 0.5,
+    vx: (Math.random() - 0.5) * 0.5, // initial velocity in x direction
+    vy: (Math.random() - 0.5) * 0.5, // initial velocity in y direction
+    originalVx: (Math.random() - 0.5) * 0.5, // store original velocity in x direction
+    originalVy: (Math.random() - 0.5) * 0.5, // store original velocity in y direction
     radius: Math.random() * radiusMultiplier + 1,
-    color: "lightblue",
+    color: "rgba(127, 175, 207, 0.8)", // white color with some transparency
   });
 }
 
 // Function to draw each particle
 function drawParticles(particle) {
-  const dx = particle.x - mouse.x;
-  const dy = particle.y - mouse.y;
-  const distance = Math.sqrt(dx * dx + dy * dy);
+  const dx = particle.x - mouse.x; // distance from mouse x
+  const dy = particle.y - mouse.y; // distance from mouse y
+  const distance = Math.sqrt(dx * dx + dy * dy); // calculate distance to mouse
 
   ctx.beginPath();
-  ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+  ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2); // draw circle
 
   if (mouse.x !== null && distance < escapeRadius) {
-    ctx.shadowColor = "rgba(218, 22, 22, 0.8)"; // lightblue glow
-    ctx.shadowBlur = 15;
+    ctx.shadowColor = "rgba(255, 0, 0, 0.8)"; // lightblue glow
+    ctx.shadowBlur = 15; // blur effect for glow
   } else {
-    ctx.shadowBlur = 0;
+    ctx.shadowBlur = 0; // no glow effect when not near mouse
   }
 
   ctx.fillStyle = particle.color;
@@ -70,8 +70,8 @@ function updateParticles(particle) {
   particle.y += particle.vy;
 
   // Wrap-around screen edges
-  if (particle.x < 0) particle.x = canvas.width;
-  if (particle.x > canvas.width) particle.x = 0;
+  if (particle.x < 0) particle.x = canvas.width; // if particle goes off left edge, wrap to right
+  if (particle.x > canvas.width) particle.x = 0; // if particle goes off right edge, wrap to left
   if (particle.y < 0) particle.y = canvas.height;
   if (particle.y > canvas.height) particle.y = 0;
 }
